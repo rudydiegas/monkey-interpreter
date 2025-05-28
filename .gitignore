@@ -1,2 +1,5 @@
+# ignoring build artifacts
 .stack-work/
-*~
+
+# using stack, so ignoring auto-generated cabal file
+monkey-interpreter.cabal
