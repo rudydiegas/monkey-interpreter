@@ -1,6 +1,6 @@
 module Main (main) where
 
-import Lib
+import Monkey.Lib
 
 main :: IO ()
-main = someFunc
+main = monkeyingAround
