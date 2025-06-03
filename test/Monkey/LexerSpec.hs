@@ -21,10 +21,17 @@ spec = do
     let decoded = decodeUtf8 contents
     let l = newLexer decoded
     let toks = collectTokens l
-    toks `shouldBe` correctToks
+    toks `shouldBe` simpleToks
 
-correctToks :: [Token]
-correctToks =
+  it "should pass edge cases" $ do
+    contents <- BS.readFile $ monkeyFileDir ++ "lexing_edge.monkey"
+    let decoded = decodeUtf8 contents
+    let l = newLexer decoded
+    let toks = collectTokens l
+    toks `shouldBe` edgeToks
+
+simpleToks :: [Token]
+simpleToks =
   [ LET
   , IDENT "five"
   , ASSIGN
@@ -98,5 +105,15 @@ correctToks =
   , NEQ
   , INT 9
   , SCOLON
+  , EOF
+  ]
+
+edgeToks :: [Token]
+edgeToks = init simpleToks ++
+  [ ILLEGAL '^'
+  , ILLEGAL '#'
+  , ILLEGAL '$'
+  , ILLEGAL '😔'
+  , IDENT "𝜆"
   , EOF
   ]
